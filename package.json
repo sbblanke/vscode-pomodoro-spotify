@@ -2,7 +2,7 @@
   "name": "vscode-pomodoro-spotify",
   "displayName": "VSCode Pomodoro Spotify",
   "description": "Boost your productivity with integrated Pomodoro timer and Spotify playlist management. Automatically switch between work and break playlists, track your focus sessions, and stay motivated with your favorite music.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "sbblanke",
   "repository": {
     "type": "git",
@@ -138,12 +138,12 @@
         "mac": "cmd+shift+alt+s"
       },
       {
-        "command": "pomodoro-spotify.pauseTimer", 
+        "command": "pomodoro-spotify.pauseTimer",
         "key": "ctrl+alt+p",
         "mac": "cmd+alt+p"
       },
       {
-        "command": "pomodoro-spotify.stopTimer", 
+        "command": "pomodoro-spotify.stopTimer",
         "key": "ctrl+alt+x",
         "mac": "cmd+alt+x"
       },
@@ -227,7 +227,10 @@
         },
         "pomodoroSpotify.transitionMode": {
           "type": "string",
-          "enum": ["manual", "auto"],
+          "enum": [
+            "manual",
+            "auto"
+          ],
           "enumDescriptions": [
             "Show notification with user confirmation required",
             "Automatically start next interval"
