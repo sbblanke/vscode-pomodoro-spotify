@@ -187,7 +187,7 @@ export class SpotifyService {
                     this.authCallbackServer = new AuthCallbackServer();
                 }
                 
-                const port = await this.authCallbackServer.startServer();
+                await this.authCallbackServer.startServer();
                 // Auth server started successfully
                 
                 await this.openAuthUrl();
