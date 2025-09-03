@@ -1,0 +1,425 @@
+{
+  "name": "vscode-pomodoro-spotify",
+  "displayName": "VSCode Pomodoro Spotify",
+  "description": "Boost your productivity with integrated Pomodoro timer and Spotify playlist management. Automatically switch between work and break playlists, track your focus sessions, and stay motivated with your favorite music.",
+  "version": "1.0.0",
+  "publisher": "sbblanke",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sbblanke/vscode-pomodoro-spotify.git"
+  },
+  "homepage": "https://github.com/sbblanke/vscode-pomodoro-spotify#readme",
+  "bugs": {
+    "url": "https://github.com/sbblanke/vscode-pomodoro-spotify/issues"
+  },
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other",
+    "Productivity"
+  ],
+  "keywords": [
+    "pomodoro",
+    "spotify",
+    "productivity",
+    "timer",
+    "music",
+    "focus",
+    "time management",
+    "work sessions",
+    "break reminders",
+    "playlist",
+    "workflow"
+  ],
+  "activationEvents": [
+    "onStartupFinished",
+    "onUri"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "pomodoro-spotify.startTimer",
+        "title": "Start Pomodoro Timer",
+        "category": "Pomodoro"
+      },
+      {
+        "command": "pomodoro-spotify.stopTimer",
+        "title": "Stop Pomodoro Timer",
+        "category": "Pomodoro"
+      },
+      {
+        "command": "pomodoro-spotify.resetTimer",
+        "title": "Reset Pomodoro Timer",
+        "category": "Pomodoro"
+      },
+      {
+        "command": "pomodoro-spotify.skipInterval",
+        "title": "Skip Current Interval",
+        "category": "Pomodoro"
+      },
+      {
+        "command": "pomodoro-spotify.authenticateSpotify",
+        "title": "Connect to Spotify",
+        "category": "Pomodoro"
+      },
+      {
+        "command": "pomodoro-spotify.configureSettings",
+        "title": "Configure Pomodoro Settings",
+        "category": "Pomodoro"
+      },
+      {
+        "command": "pomodoro-spotify.viewStats",
+        "title": "View Productivity Statistics",
+        "category": "Pomodoro"
+      },
+      {
+        "command": "pomodoro-spotify.viewErrorHistory",
+        "title": "View Error History",
+        "category": "Pomodoro"
+      },
+      {
+        "command": "pomodoro-spotify.startCustomTimer",
+        "title": "Start Custom Timer",
+        "category": "Pomodoro"
+      },
+      {
+        "command": "pomodoro-spotify.showTimerControls",
+        "title": "Show Timer Controls",
+        "category": "Pomodoro"
+      },
+      {
+        "command": "pomodoro-spotify.pauseTimer",
+        "title": "Pause/Resume Timer",
+        "category": "Pomodoro"
+      },
+      {
+        "command": "pomodoro-spotify.restartInterval",
+        "title": "Restart Current Interval",
+        "category": "Pomodoro"
+      },
+      {
+        "command": "pomodoro-spotify.playPause",
+        "title": "Play/Pause Music",
+        "category": "Spotify"
+      },
+      {
+        "command": "pomodoro-spotify.nextTrack",
+        "title": "Next Track",
+        "category": "Spotify"
+      },
+      {
+        "command": "pomodoro-spotify.previousTrack",
+        "title": "Previous Track",
+        "category": "Spotify"
+      },
+      {
+        "command": "pomodoro-spotify.stopMusic",
+        "title": "Stop Music",
+        "category": "Spotify"
+      },
+      {
+        "command": "pomodoro-spotify.configureSounds",
+        "title": "Configure Notification Sounds",
+        "category": "Pomodoro"
+      },
+      {
+        "command": "pomodoro-spotify.showWelcome",
+        "title": "Show Welcome & Setup Guide",
+        "category": "Pomodoro"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "pomodoro-spotify.startTimer",
+        "key": "ctrl+shift+alt+s",
+        "mac": "cmd+shift+alt+s"
+      },
+      {
+        "command": "pomodoro-spotify.pauseTimer", 
+        "key": "ctrl+alt+p",
+        "mac": "cmd+alt+p"
+      },
+      {
+        "command": "pomodoro-spotify.stopTimer", 
+        "key": "ctrl+alt+x",
+        "mac": "cmd+alt+x"
+      },
+      {
+        "command": "pomodoro-spotify.skipInterval",
+        "key": "ctrl+shift+alt+n",
+        "mac": "cmd+shift+alt+n"
+      },
+      {
+        "command": "pomodoro-spotify.restartInterval",
+        "key": "ctrl+shift+alt+r",
+        "mac": "cmd+shift+alt+r"
+      },
+      {
+        "command": "pomodoro-spotify.playPause",
+        "key": "MediaPlayPause"
+      },
+      {
+        "command": "pomodoro-spotify.nextTrack",
+        "key": "MediaTrackNext"
+      },
+      {
+        "command": "pomodoro-spotify.previousTrack",
+        "key": "MediaTrackPrevious"
+      },
+      {
+        "command": "pomodoro-spotify.stopMusic",
+        "key": "MediaStop"
+      }
+    ],
+    "configuration": {
+      "title": "Pomodoro Spotify",
+      "properties": {
+        "pomodoroSpotify.workInterval": {
+          "type": "number",
+          "default": 25,
+          "description": "Work interval duration in minutes",
+          "minimum": 1,
+          "maximum": 120
+        },
+        "pomodoroSpotify.shortBreakInterval": {
+          "type": "number",
+          "default": 5,
+          "description": "Short break interval duration in minutes",
+          "minimum": 1,
+          "maximum": 30
+        },
+        "pomodoroSpotify.longBreakInterval": {
+          "type": "number",
+          "default": 15,
+          "description": "Long break interval duration in minutes",
+          "minimum": 1,
+          "maximum": 60
+        },
+        "pomodoroSpotify.longBreakAfter": {
+          "type": "number",
+          "default": 4,
+          "description": "Number of work intervals before a long break",
+          "minimum": 1,
+          "maximum": 10
+        },
+        "pomodoroSpotify.workPlaylist": {
+          "type": "string",
+          "default": "",
+          "description": "Spotify playlist ID for work intervals"
+        },
+        "pomodoroSpotify.breakPlaylist": {
+          "type": "string",
+          "default": "",
+          "description": "Spotify playlist ID for break intervals"
+        },
+        "pomodoroSpotify.autoStartMusic": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically start music when intervals begin"
+        },
+        "pomodoroSpotify.showNotifications": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show notifications for interval transitions"
+        },
+        "pomodoroSpotify.transitionMode": {
+          "type": "string",
+          "enum": ["manual", "auto"],
+          "enumDescriptions": [
+            "Show notification with user confirmation required",
+            "Automatically start next interval"
+          ],
+          "default": "manual",
+          "description": "How to handle transitions between work and break intervals"
+        },
+        "pomodoroSpotify.shuffleWorkPlaylist": {
+          "type": "boolean",
+          "default": false,
+          "description": "Shuffle work playlist when starting"
+        },
+        "pomodoroSpotify.shuffleBreakPlaylist": {
+          "type": "boolean",
+          "default": false,
+          "description": "Shuffle break playlist when starting"
+        },
+        "pomodoroSpotify.keybindingStartTimer": {
+          "type": "string",
+          "default": "ctrl+shift+alt+s",
+          "description": "Keyboard shortcut to start timer (Windows/Linux)"
+        },
+        "pomodoroSpotify.keybindingStartTimerMac": {
+          "type": "string",
+          "default": "cmd+shift+alt+s",
+          "description": "Keyboard shortcut to start timer (Mac)"
+        },
+        "pomodoroSpotify.keybindingPauseTimer": {
+          "type": "string",
+          "default": "ctrl+alt+p",
+          "description": "Keyboard shortcut to pause/resume timer (Windows/Linux)"
+        },
+        "pomodoroSpotify.keybindingPauseTimerMac": {
+          "type": "string",
+          "default": "cmd+alt+p",
+          "description": "Keyboard shortcut to pause/resume timer (Mac)"
+        },
+        "pomodoroSpotify.keybindingStopTimer": {
+          "type": "string",
+          "default": "ctrl+alt+x",
+          "description": "Keyboard shortcut to stop timer (Windows/Linux)"
+        },
+        "pomodoroSpotify.keybindingStopTimerMac": {
+          "type": "string",
+          "default": "cmd+alt+x",
+          "description": "Keyboard shortcut to stop timer (Mac)"
+        },
+        "pomodoroSpotify.keybindingSkipInterval": {
+          "type": "string",
+          "default": "ctrl+shift+alt+n",
+          "description": "Keyboard shortcut to skip current interval (Windows/Linux)"
+        },
+        "pomodoroSpotify.keybindingSkipIntervalMac": {
+          "type": "string",
+          "default": "cmd+shift+alt+n",
+          "description": "Keyboard shortcut to skip current interval (Mac)"
+        },
+        "pomodoroSpotify.keybindingRestartInterval": {
+          "type": "string",
+          "default": "ctrl+shift+alt+r",
+          "description": "Keyboard shortcut to restart current interval (Windows/Linux)"
+        },
+        "pomodoroSpotify.keybindingRestartIntervalMac": {
+          "type": "string",
+          "default": "cmd+shift+alt+r",
+          "description": "Keyboard shortcut to restart current interval (Mac)"
+        },
+        "pomodoroSpotify.sounds.workStart.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable sound when work session starts"
+        },
+        "pomodoroSpotify.sounds.workStart.volume": {
+          "type": "number",
+          "default": 0.7,
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Volume for work start sound (0.0-1.0)"
+        },
+        "pomodoroSpotify.sounds.breakStart.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable sound when break starts"
+        },
+        "pomodoroSpotify.sounds.breakStart.volume": {
+          "type": "number",
+          "default": 0.7,
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Volume for break start sound (0.0-1.0)"
+        },
+        "pomodoroSpotify.sounds.longBreakStart.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable sound when long break starts"
+        },
+        "pomodoroSpotify.sounds.longBreakStart.volume": {
+          "type": "number",
+          "default": 0.7,
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Volume for long break start sound (0.0-1.0)"
+        },
+        "pomodoroSpotify.sounds.workEnd.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable sound when work session ends"
+        },
+        "pomodoroSpotify.sounds.workEnd.volume": {
+          "type": "number",
+          "default": 0.7,
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Volume for work end sound (0.0-1.0)"
+        },
+        "pomodoroSpotify.sounds.5minWarning.enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable 5-minute warning sound"
+        },
+        "pomodoroSpotify.sounds.5minWarning.volume": {
+          "type": "number",
+          "default": 0.7,
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Volume for 5-minute warning sound (0.0-1.0)"
+        },
+        "pomodoroSpotify.sounds.1minWarning.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable 1-minute warning sound"
+        },
+        "pomodoroSpotify.sounds.1minWarning.volume": {
+          "type": "number",
+          "default": 0.7,
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Volume for 1-minute warning sound (0.0-1.0)"
+        },
+        "pomodoroSpotify.sounds.timerPause.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable sound when timer is paused"
+        },
+        "pomodoroSpotify.sounds.timerPause.volume": {
+          "type": "number",
+          "default": 0.7,
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Volume for timer pause sound (0.0-1.0)"
+        },
+        "pomodoroSpotify.sounds.timerResume.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable sound when timer is resumed"
+        },
+        "pomodoroSpotify.sounds.timerResume.volume": {
+          "type": "number",
+          "default": 0.7,
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Volume for timer resume sound (0.0-1.0)"
+        },
+        "pomodoroSpotify.spotify.clientId": {
+          "type": "string",
+          "default": "",
+          "description": "Spotify Client ID (leave empty to use built-in client ID for personal use)",
+          "markdownDescription": "Your Spotify Application Client ID. Leave empty to use the built-in client ID for personal use. For production deployments, create your own Spotify app at https://developer.spotify.com/"
+        }
+      }
+    }
+  },
+  "uriSchemes": [
+    "pomodoro-spotify-extension"
+  ],
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.11",
+    "@types/vscode": "^1.74.0",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "@vscode/test-electron": "^2.2.0",
+    "@vscode/vsce": "^2.32.0",
+    "eslint": "^8.28.0",
+    "typescript": "^4.9.4"
+  }
+}

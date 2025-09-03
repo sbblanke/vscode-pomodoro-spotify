@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Authorization - Success</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #1db954, #1ed760);
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 3rem;
+            border-radius: 20px;
+            max-width: 500px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        .success-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: bounce 1s ease-in-out;
+        }
+        h1 {
+            margin: 1rem 0;
+            font-size: 2rem;
+            font-weight: 300;
+        }
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin: 1.5rem 0;
+            opacity: 0.9;
+        }
+        .redirect-info {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-right: 0.5rem;
+        }
+        @keyframes bounce {
+            0%, 20%, 60%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            80% { transform: translateY(-10px); }
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .footer {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="success-icon">✅</div>
+        <h1>Authorization Successful!</h1>
+        <p>You have successfully authorized the VSCode Pomodoro Spotify extension to access your Spotify account.</p>
+        
+        <div class="redirect-info">
+            <div class="spinner"></div>
+            <strong>Redirecting to VS Code...</strong>
+        </div>
+        
+        <p>If VS Code doesn't open automatically, please return to VS Code manually to continue. You can safely close this browser tab.</p>
+        
+        <div class="footer">
+            VSCode Pomodoro Spotify Extension
+        </div>
+    </div>
+
+    <script>
+        // Extract authorization code from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const code = urlParams.get('code');
+        const state = urlParams.get('state');
+        const error = urlParams.get('error');
+        
+        if (code) {
+            // Construct VSCode URI with the authorization code
+            const vscodeUri = `vscode://sbblanke.vscode-pomodoro-spotify/auth-callback?code=${encodeURIComponent(code)}&state=${encodeURIComponent(state || '')}`;
+            
+            // Attempt to redirect to VSCode after a short delay
+            setTimeout(() => {
+                window.location.href = vscodeUri;
+            }, 2000);
+            
+            // Also try opening it in case the redirect doesn't work
+            setTimeout(() => {
+                try {
+                    window.open(vscodeUri, '_self');
+                } catch (e) {
+                    console.log('Direct redirect failed, user should return to VSCode manually');
+                }
+            }, 3000);
+        } else if (error) {
+            // Show error message if authorization failed
+            document.querySelector('.success-icon').textContent = '❌';
+            document.querySelector('h1').textContent = 'Authorization Failed';
+            document.querySelector('p').textContent = `There was an error during authorization: ${error}`;
+            document.querySelector('.redirect-info').innerHTML = '<strong>Please return to VS Code and try again.</strong>';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+# Build files
+.vscode/**
+.vscode-test/**
+src/**
+out/test/**
+**/*.map
+*.vsix
+
+# Development files
+.gitignore
+.yarnrc
+vsc-extension-quickstart.md
+**/tsconfig.json
+**/.eslintrc.json
+**/*.ts
+
+# Node modules and dependencies
+node_modules
+.npm
+
+# Documentation (keep README.md but exclude others)
+TESTING_CHECKLIST.md
+CLIENT_ID_SECURITY_REVIEW.md
+CLIENT_ID_SETUP.md
+SECURITY_REVIEW_REPORT.md
+ROADMAP.md
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.idea
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# nyc test coverage
+.nyc_output/
+
+# Test files
+test/**
+**/*.test.*
+**/*.spec.*
